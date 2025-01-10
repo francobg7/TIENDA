@@ -3,7 +3,7 @@
     const bcrypyt = require('bcryptjs');
     const jwt = require('jsonwebtoken');
 
-    //definimos nuestro Schema de adm y que la comntrasenha y username sean obligatorios
+    //definimos nuestro Schema de adm y que la comntrasea y username sean obligatorios
     const userSchema = new mongoose.Schema({
         username: { 
             type: String, 
