@@ -13,6 +13,7 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Configurar EJS   
 app.set('view engine', 'ejs');
@@ -20,17 +21,17 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Conexión a MongoDB
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ Conectado a MongoDB'))
-  .catch(err => console.error('Error de conexión:', err));
-
-// Rutas
-app.use('/auth', authRoutes);
-app.use('/products', productRoutes);
+    .then(() => console.log('✅ Conectado a MongoDB'))
+    .catch(err => console.error('Error de conexión:', err));
 
 // Ruta inicial
 app.get('/', (req, res) => {
     res.render('login');
 });
+
+// Rutas de módulos
+app.use('/auth', authRoutes);
+app.use('/products', productRoutes);
 
 // Manejo de errores 404
 app.use((req, res) => {
