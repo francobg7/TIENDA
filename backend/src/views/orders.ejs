@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión de Pedidos</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .status {
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Pedidos</h1>
+    
+    <% if (locals.orders && orders.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Productos</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(order => { %>
+                    <tr>
+                        <td><%= order.customerInfo.name %></td>
+                        <td>
+                            <% order.items.forEach(item => { %>
+                                <%= item.product.name %> x <%= item.quantity %><br>
+                            <% }) %>
+                        </td>
+                        <td>$<%= order.totalAmount %></td>
+                        <td><%= order.status %></td>
+                        <td>
+                            <form action="/orders/<%= order._id %>" method="POST">
+                                <select name="status">
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="enviado">Enviado</option>
+                                    <option value="entregado">Entregado</option>
+                                </select>
+                                <button type="submit">Actualizar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No hay pedidos disponibles</p>
+    <% } %>
+</body>
+</html>
