@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Completar Pedido</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        .order-summary {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Completar Pedido</h1>
+
+        <div class="order-summary">
+            <h3>Resumen del Pedido</h3>
+            {{with .Product}}
+            <p>Producto: {{.Name}}</p>
+            <p>Precio: ${{.Price}}</p>
+            <p>Talla: {{.Size}}</p>
+            {{end}}
+        </div>
+
+        <form action="/submit-order" method="POST">
+            <input type="hidden" name="product_id" value="{{.Product.ID}}">
+            <div class="form-group">
+                <label>Nombre:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Dirección:</label>
+                <input type="text" name="address" required>
+            </div>
+            <button type="submit">Confirmar Pedido</button>
+        </form>
+    </div>
+</body>
+</html>
