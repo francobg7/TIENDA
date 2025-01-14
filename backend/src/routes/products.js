@@ -1,4 +1,5 @@
-const router = require('express')
+const express = require('express')
+const router = express.Router()
 const Product = require('../models/product')
 const auth = require('../middleware/auth')
 
