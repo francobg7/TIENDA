@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tienda - Productos</title>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+        }
+        .buy-form {
+            margin-top: 10px;
+        }
+        select, button {
+            padding: 5px;
+            margin: 5px;
+        }
+        button {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nuestros Productos</h1>
+
+        <div class="products-grid">
+            {{range .Products}}
+            <div class="product-card">
+                <h3>{{.Name}}</h3>
+                <p>{{.Type}}</p>
+                <p>Precio: ${{.Price}}</p>
+                <p>Stock: {{.Stock}}</p>
+                
+                <form class="buy-form" action="/order" method="POST">
+                    <input type="hidden" name="product_id" value="{{.ID}}">
+                    <select name="size" required>
+                        <option value="">Seleccionar Talla</option>
+                        <option value="{{.Size}}">{{.Size}}</option>
+                    </select>
+                    <button type="submit">Comprar</button>
+                </form>
+            </div>
+            {{end}}
+        </div>
+    </div>
+</body>
+</html>
