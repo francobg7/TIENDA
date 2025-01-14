@@ -26,7 +26,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Ruta inicial
 app.get('/', (req, res) => {
-    res.render('login');
+    res.render('login', { 
+        title: 'Panel Admin' 
+    });
 });
 
 // Rutas de módulos
