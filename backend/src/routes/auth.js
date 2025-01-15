@@ -4,6 +4,26 @@ const router = express.Router();
 const User = require('../models/user');
 const auth = require('../middleware/auth');
 
+// Nueva ruta de registro
+router.post('/register', async (req, res) => {
+    try {
+        const user = await User.create({
+            username: req.body.username,
+            password: req.body.password
+        });
+        
+        const token = user.generateToken();
+        res.status(201).json({ 
+            mensaje: 'Usuario creado con éxito',
+            token 
+        });
+    } catch (error) {
+        res.status(400).json({ 
+            error: 'Error al crear usuario' 
+        });
+    }
+});
+
 // Ruta de login
 router.post('/login', async (req, res) => {
     try {
