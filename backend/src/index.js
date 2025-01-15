@@ -1,5 +1,10 @@
 // src/index.js
 require('dotenv').config();
+console.log('Variables de entorno:', {
+    port: process.env.PORT,
+    mongodb: process.env.MONGODB_URI,
+    jwt: process.env.JWT_SECRET
+});
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -20,7 +25,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Conexión a MongoDB
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect('mongodb://localhost:27017/tienda')
     .then(() => console.log('✅ Conectado a MongoDB'))
     .catch(err => console.error('Error de conexión:', err));
 
@@ -40,7 +45,7 @@ app.use((req, res) => {
     res.status(404).render('404');
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000 ;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
